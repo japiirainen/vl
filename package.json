@@ -1,0 +1,9 @@
+{
+  "name": "vl",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:japiirainen/vl.git",
+  "author": "Joona Piirainen <joona.piirainen@gmail.com>",
+  "license": "MIT"
+}

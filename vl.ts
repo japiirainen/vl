@@ -1,22 +1,62 @@
-import * as p from 'https://deno.land/std@0.129.0/node/process.ts'
+#!/usr/bin/env deno run --allow-read
+
+// Copyright 2022 Joona Piirainen
+// MIT License
+
+import {process} from 'https://deno.land/std@0.129.0/node/process.ts'
+import * as path from 'https://deno.land/std@0.129.0/path/mod.ts'
+import * as fs from 'https://deno.land/std@0.129.0/fs/mod.ts'
+import * as url from 'https://deno.land/std@0.129.0/node/url.ts'
 import * as Colors from 'https://deno.land/std/fmt/colors.ts'
+
+import './globals.ts'
+import './globals.d.ts'
 
 const main = async () => {
   try {
-    if (Deno.args[0] === '--version') {
+    if (['--version', '-v'].includes(Deno.args[0])) {
       printVersionInfo()
-      return (p.process.exitCode = 0)
+      return (process.exitCode = 0)
     }
     const fArg = Deno.args.find((a) => !a.startsWith('--'))
-    const file = await Deno.readTextFile('test.ts')
-    console.log(file)
+    // no <script> argument provided
     if (fArg === '-' || fArg == null) {
       printUsage()
-      return (p.process.exitCode = 2)
+      return (process.exitCode = 2)
     }
+    await runScript(fArg)
   } catch (e) {
     console.error(e)
   }
+}
+
+const writeAndImport = async (
+  source: string,
+  filePath: string,
+  origin = filePath
+) => {
+  await Deno.writeTextFile(filePath, source)
+  const wait = runScript(filePath, origin)
+  await Deno.remove(filePath)
+  await wait
+}
+
+const runScript = async (filePath: string, origin = filePath) => {
+  const ext = path.extname(filePath)
+  if (ext == '') {
+    const tempFileName = fs.existsSync(filePath)
+      ? `${path.basename(filePath)}-${Math.random().toString(36).substr(2)}.mjs`
+      : `${path.basename(filePath)}.mjs`
+    return await writeAndImport(
+      await Deno.readTextFile(filePath),
+      path.join(path.dirname(filePath), tempFileName),
+      origin
+    )
+  }
+  const __fileName = path.resolve(origin)
+  const __dirName = path.dirname(__fileName)
+  Object.assign(globalThis, {__fileName, __dirName})
+  await import(url.pathToFileURL(filePath).toString())
 }
 
 const printVersionInfo = () =>
@@ -25,7 +65,8 @@ const printVersionInfo = () =>
     Violet version:     1.0
     Deno version:       ${Deno.version.deno}
     V8 version:         ${Deno.version.v8}
-    TypeScript version: ${Deno.version.typescript}`)
+    TypeScript version: ${Deno.version.typescript}
+    `)
 
 const printUsage = () =>
   console.log(`
