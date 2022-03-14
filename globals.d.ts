@@ -1,7 +1,12 @@
+//
+// Copyright 2022 Joona Piirainen
+// MIT License
+//
+
 import {
   $,
   //   argv as _argv,
-  //   cd,
+  cd as cd_,
   //   chalk as _chalk,
   //   fetch as _fetch,
   //   fs as _fs,
@@ -16,7 +21,7 @@ import {
 declare global {
   const $: $
   //   var argv: typeof _argv
-  //   var cd: cd
+  const cd: typeof cd_
   //   var chalk: typeof _chalk
   //   // @ts-ignore
   //   var fetch: typeof _fetch

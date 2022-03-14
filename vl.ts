@@ -1,7 +1,9 @@
 #!/usr/bin/env deno run --allow-read
 
+//
 // Copyright 2022 Joona Piirainen
 // MIT License
+//
 
 import {process} from 'https://deno.land/std@0.129.0/node/process.ts'
 import * as path from 'https://deno.land/std@0.129.0/path/mod.ts'
@@ -76,7 +78,10 @@ const printUsage = () =>
     vl [options] <script>
 
   Options:
-    --quiet         : don't echo commands
+    --quiet            : don't echo commands
+    --shell=<path>     : custom shell binary
+    --prefix=<command> : prefix all commands
+    --version, -v      : print version info
   `)
 
 await main()

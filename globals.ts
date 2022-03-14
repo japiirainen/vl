@@ -1,3 +1,8 @@
-import {initEnv} from './index.ts'
+//
+// Copyright 2022 Joona Piirainen
+// MIT License
+//
 
-initEnv()
+import { initEnv } from "./index.ts";
+
+initEnv();
