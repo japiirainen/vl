@@ -1,36 +1,14 @@
+// deno-lint-ignore-file ban-ts-comment
 //
 // Copyright 2022 Joona Piirainen
 // MIT License
 //
 
-import {
-  $,
-  //   argv as _argv,
-  cd as cd_,
-  //   chalk as _chalk,
-  //   fetch as _fetch,
-  //   fs as _fs,
-  //   globby as _globby,
-  //   nothrow,
-  //   os as _os,
-  //   path as _path,
-  //   question,
-  //   sleep,
-} from './index.ts'
+import { $Internal, cdInternal } from "./index.ts";
 
 declare global {
-  const $: $
-  //   var argv: typeof _argv
-  const cd: typeof cd_
-  //   var chalk: typeof _chalk
-  //   // @ts-ignore
-  //   var fetch: typeof _fetch
-  //   var fs: typeof _fs
-  //   var globby: typeof _globby.globby & typeof _globby
-  //   var glob: typeof _globby.globby & typeof _globby
-  //   var nothrow: nothrow
-  //   var os: typeof _os
-  //   var path: typeof _path
-  //   var question: question
-  //   var sleep: sleep
+  //@ts-ignore
+  const $: $Internal;
+  //@ts-ignore
+  const cd: typeof cdInternal;
 }
