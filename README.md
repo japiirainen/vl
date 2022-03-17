@@ -1,5 +1,7 @@
 # vl
 
+Shell scripting with TypeScript. Runs on top of (Deno)[https://deno.land].
+
 ```ts
 #!/usr/bin/env vl
 
