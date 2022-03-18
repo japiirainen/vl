@@ -5,7 +5,7 @@
 // MIT License
 //
 
-import "https://deno.land/x/violet@0.0.1/globals.d.ts";
+import "../globals.d.ts";
 
 await Promise.all([
   $`sleep 1; echo 1`,

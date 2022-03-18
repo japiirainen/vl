@@ -4,6 +4,7 @@
 //
 
 import { process } from "https://deno.land/std@0.129.0/node/process.ts";
+import { readLines } from "https://deno.land/std@0.129.0/io/buffer.ts";
 import * as child_process from "https://deno.land/std@0.129.0/node/child_process.ts";
 import { ChildProcess } from "https://deno.land/std@0.129.0/node/internal/child_process.ts";
 import * as Colors from "https://deno.land/std/fmt/colors.ts";
@@ -18,6 +19,7 @@ export const initEnv = () =>
   Object.assign(globalThis, {
     $: $Internal,
     cd: cdInternal,
+    ask: askInternal,
   });
 
 export interface $Internal {
@@ -30,9 +32,6 @@ export interface $Internal {
   quote: (input: string) => string;
   spawn: typeof child_process.spawn;
 }
-type ExitCode = {
-  exitCode: number;
-};
 
 export class VlPromise<P extends ProcessOutput> extends Promise<P> {
   child?: ChildProcess = undefined;
@@ -307,4 +306,11 @@ const colorize = (cmd: string) =>
 export const cdInternal = (path: string) => {
   if ($Internal.verbose) console.log("$", colorize(`cd ${path}`));
   Deno.chdir(path);
+};
+
+export const askInternal = async (question: string) => {
+  console.log(question);
+  for await (const line of readLines(Deno.stdin)) {
+    return line;
+  }
 };
