@@ -5,7 +5,7 @@ jobs:
 
     strategy:
       matrix:
-        deno-version: [1.17]
+        deno-version: [1.20.1]
 
     steps:
       - name: Git Checkout Deno Module

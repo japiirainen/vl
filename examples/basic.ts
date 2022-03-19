@@ -7,6 +7,8 @@
 
 import "../globals.d.ts";
 
+const { create, mkdir } = Deno;
+
 await Promise.all([
   $`sleep 1; echo 1`,
   $`sleep 2; echo ${2}`,
@@ -15,8 +17,8 @@ await Promise.all([
 
 await fetch("https://google.com");
 
-await $`mkdir tests`;
-await $`touch tests/test.txt`;
+await mkdir("tests");
+await create("tests/test.txt");
 
 cd("tests");
 await $`ls`;
