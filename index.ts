@@ -3,11 +3,12 @@
 // MIT License
 //
 
+import * as fs from "https://deno.land/std@0.129.0/node/fs.ts";
 import { process } from "https://deno.land/std@0.129.0/node/process.ts";
 import { readLines } from "https://deno.land/std@0.129.0/io/buffer.ts";
 import * as child_process from "https://deno.land/std@0.129.0/node/child_process.ts";
 import { ChildProcess } from "https://deno.land/std@0.129.0/node/internal/child_process.ts";
-import * as Colors from "https://deno.land/std/fmt/colors.ts";
+import * as Colors from "https://deno.land/std@0.129.0/fmt/colors.ts";
 import { parse } from "https://deno.land/std@0.119.0/flags/mod.ts";
 import { getTree } from "https://deno.land/x/process@v0.3.0/mod.ts";
 import {
@@ -15,11 +16,15 @@ import {
   Writable,
 } from "https://deno.land/std@0.129.0/node/stream.ts";
 
+export const fsInternal = fs;
+
 export const initEnv = () =>
   Object.assign(globalThis, {
     $: $Internal,
     cd: cdInternal,
     ask: askInternal,
+    fs: fsInternal,
+    rmrf: rmrfInternal,
   });
 
 export interface $Internal {
@@ -79,6 +84,32 @@ export class VlPromise<P extends ProcessOutput> extends Promise<P> {
   then(onfulfilled?: (value: P) => any, onrejected?: (value: P) => any) {
     if (this._run) this._run();
     return super.then(onfulfilled, onrejected);
+  }
+
+  pipe(dest: VlPromise<ProcessOutput> | Writable): VlPromise<ProcessOutput> {
+    if (typeof dest === "string") {
+      throw new Error("The pipe() method does not take strings. Forgot $?");
+    }
+    if (this._resolved === true) {
+      throw new Error(
+        "The pipe() method shouldn't be called after promise is already resolved!",
+      );
+    }
+    this._piped = true;
+    if (
+      dest instanceof VlPromise &&
+      dest.child != null &&
+      dest.child.stdin != null
+    ) {
+      dest._inheritStdin = false;
+      dest._preRun = this._run;
+      const p = dest.child.stdin;
+      dest._postRun = () => this.stdout.pipe(p);
+      return dest;
+    } else {
+      this._postRun = () => this.stdout.pipe(dest as Writable);
+      return this;
+    }
   }
 
   async kill(signal: Deno.Signal = "SIGTERM") {
@@ -313,4 +344,8 @@ export const askInternal = async (question: string) => {
   for await (const line of readLines(Deno.stdin)) {
     return line;
   }
+  return "";
 };
+
+export const rmrfInternal = async (path: string) =>
+  await Deno.remove(path, { recursive: true });

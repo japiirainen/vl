@@ -20,6 +20,15 @@ await $`touch tests/test.txt`;
 await $`rm -rf tests`;
 ```
 
+### Pipelines
+
+```ts
+await $`echo "Hello, stdout!"`
+  .pipe(fs.createWriteStream("/tmp/output.txt", {}));
+
+await $`cat /tmp/output.txt`;
+```
+
 ### Prerequisites
 
 - deno
