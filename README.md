@@ -45,6 +45,10 @@ await $`rm -rf tests`;
 ### Pipelines
 
 ```ts
+#!/usr/bin/env vl
+
+import "https://deno.land/x/violet/globals.d.ts";
+
 await $`echo "Hello, stdout!"`
   .pipe(fs.createWriteStream("/tmp/output.txt", {}));
 
