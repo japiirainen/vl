@@ -8,15 +8,15 @@ import {
   askInternal,
   cdInternal,
   fsInternal,
-  rmrfInternal,
   noThrowInternal,
-} from './index.ts'
+  rmrfInternal,
+} from "./index.ts";
 
 declare global {
-  const $: $Internal
-  const cd: typeof cdInternal
-  const ask: typeof askInternal
-  const fs: typeof fsInternal
-  const rmrf: typeof rmrfInternal
-  const noThrow: typeof noThrowInternal
+  const $: $Internal;
+  const cd: typeof cdInternal;
+  const ask: typeof askInternal;
+  const fs: typeof fsInternal;
+  const rmrf: typeof rmrfInternal;
+  const noThrow: typeof noThrowInternal;
 }

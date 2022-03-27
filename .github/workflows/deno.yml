@@ -19,4 +19,4 @@ jobs:
       - name: Build Deno Module
         run: deno run --reload vl.ts
       - name: Test Deno Module
-        run: deno test --allow-none
+        run: deno test -A
