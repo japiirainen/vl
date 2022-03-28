@@ -9,6 +9,7 @@ import {
   cdInternal,
   fsInternal,
   noThrowInternal,
+  osInternal,
   rmrfInternal,
 } from "./index.ts";
 
@@ -17,6 +18,7 @@ declare global {
   const cd: typeof cdInternal;
   const ask: typeof askInternal;
   const fs: typeof fsInternal;
+  const os: typeof osInternal;
   const rmrf: typeof rmrfInternal;
   const noThrow: typeof noThrowInternal;
 }

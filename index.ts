@@ -9,7 +9,8 @@ import {
   ChildProcess,
   Colors,
   inspect,
-  nodeFs,
+  nodeFs as fsInternal,
+  os as osInternal,
   parse,
   process,
   psTree,
@@ -17,7 +18,8 @@ import {
   readLines,
   Writable,
 } from "./deps.ts";
-export const fsInternal = nodeFs;
+
+export { fsInternal, osInternal };
 
 export const initEnv = () =>
   Object.assign(globalThis, {
@@ -27,6 +29,7 @@ export const initEnv = () =>
     fs: fsInternal,
     rmrf: rmrfInternal,
     noThrow: noThrowInternal,
+    os: osInternal,
   });
 
 export interface $Internal {
