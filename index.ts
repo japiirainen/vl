@@ -15,6 +15,7 @@ import {
   Readable,
   Writable,
 } from "https://deno.land/std@0.129.0/node/stream.ts";
+import { kill, psTree } from "./proc.ts";
 
 export const fsInternal = fs;
 
@@ -88,7 +89,18 @@ export class VlPromise<P extends ProcessOutput> extends Promise<P> {
   }
 
   async kill(signal: Deno.Signal = "SIGTERM") {
-    throw new Error("not implemented");
+    this.catch((_) => _);
+    if (this.child != null) {
+      const children = await psTree(this.child.pid);
+      for (const child of children) {
+        try {
+          Deno.kill(child.pid, signal);
+        } catch (_e) {}
+      }
+      try {
+        Deno.kill(this.child.pid, signal);
+      } catch (_e) {}
+    }
   }
 
   pipe(dest: VlPromise<ProcessOutput> | Writable): VlPromise<ProcessOutput> {
