@@ -33,6 +33,7 @@ export const initEnv = () =>
     noThrow: noThrowInternal,
     os: osInternal,
     Colors: ColorsInternal,
+    sleep: sleepInternal,
   });
 
 export interface $Internal {
@@ -389,3 +390,6 @@ export const noThrowInternal = (p: VlPromise<ProcessOutput>) => {
   p._noThrow = true;
   return p;
 };
+
+export const sleepInternal = (ms: number) =>
+  new Promise((r) => setTimeout(r, ms));

@@ -52,6 +52,13 @@ const fileName = "awesome";
 await $`touch ${awesome}.txt`;
 ```
 
+You can also pass an array of arguments.
+
+```ts
+const flags = ["--oneline", "--decorate", "--color"];
+const { exitCode } = await $`git log ${flags}`;
+```
+
 ### Pipelines
 
 ```ts
@@ -76,6 +83,28 @@ Deno.env.set("FOO", "bar");
 
 await $`echo $FOO > tmp.txt`;
 await $`cat tmp.txt`;
+```
+
+### Functions
+
+`fetch` works, since it's natively supported in deno.
+
+```ts
+const resp = await fetch("https://wttr.in");
+console.log(await resp.text());
+```
+
+`ask` reads a line from stdin.
+
+```ts
+const resp = await ask("What is your name?");
+console.log(resp);
+```
+
+`sleep` sleeps for specified ms.
+
+```ts
+await sleep(2000);
 ```
 
 ### Install

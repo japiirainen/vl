@@ -56,3 +56,11 @@ Deno.test(".kill() works", async () => {
   }, 100);
   await p;
 });
+
+Deno.test("exiting non 0 works", async () => {
+  try {
+    await $`exit 1`;
+  } catch (e) {
+    assertEquals(e.exitCode, 1);
+  }
+});

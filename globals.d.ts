@@ -11,10 +11,13 @@ import {
   fsInternal,
   noThrowInternal,
   osInternal,
+  ProcessOutput as ProcessOutputInternal,
   rmrfInternal,
+  sleepInternal,
 } from "./index.ts";
 
 declare global {
+  const ProcessOutput: ProcessOutputInternal;
   const $: $Internal;
   const cd: typeof cdInternal;
   const ask: typeof askInternal;
@@ -23,4 +26,5 @@ declare global {
   const rmrf: typeof rmrfInternal;
   const noThrow: typeof noThrowInternal;
   const Colors: typeof ColorsInternal;
+  const sleep: typeof sleepInternal;
 }
