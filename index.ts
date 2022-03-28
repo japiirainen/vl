@@ -19,7 +19,9 @@ import {
   Writable,
 } from "./deps.ts";
 
-export { fsInternal, osInternal };
+const ColorsInternal = Colors;
+
+export { ColorsInternal, fsInternal, osInternal };
 
 export const initEnv = () =>
   Object.assign(globalThis, {
@@ -30,6 +32,7 @@ export const initEnv = () =>
     rmrf: rmrfInternal,
     noThrow: noThrowInternal,
     os: osInternal,
+    Colors: ColorsInternal,
   });
 
 export interface $Internal {

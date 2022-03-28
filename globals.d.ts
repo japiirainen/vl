@@ -7,6 +7,7 @@ import {
   $Internal,
   askInternal,
   cdInternal,
+  ColorsInternal,
   fsInternal,
   noThrowInternal,
   osInternal,
@@ -21,4 +22,5 @@ declare global {
   const os: typeof osInternal;
   const rmrf: typeof rmrfInternal;
   const noThrow: typeof noThrowInternal;
+  const Colors: typeof ColorsInternal;
 }
