@@ -42,6 +42,16 @@ cd("..");
 await $`rm -rf tests`;
 ```
 
+### `$`command``
+
+Executes the given command by spawning a subprocess. Everything passed through
+`${}` will be automatically quoted.
+
+```ts
+const fileName = "awesome";
+await $`touch ${awesome}.txt`;
+```
+
 ### Pipelines
 
 ```ts

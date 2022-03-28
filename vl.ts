@@ -5,12 +5,7 @@
 // MIT License
 //
 
-import { process } from "https://deno.land/std@0.129.0/node/process.ts";
-import * as path from "https://deno.land/std@0.129.0/path/mod.ts";
-import * as fs from "https://deno.land/std@0.129.0/fs/mod.ts";
-import * as url from "https://deno.land/std@0.129.0/node/url.ts";
-import * as Colors from "https://deno.land/std/fmt/colors.ts";
-
+import { Colors, fs, path, process, url } from "./deps.ts";
 import "./globals.ts";
 import "./globals.d.ts";
 

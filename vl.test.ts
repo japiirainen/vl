@@ -3,6 +3,12 @@ import { assertEquals } from "https://deno.land/std@0.129.0/testing/asserts.ts";
 import "./globals.d.ts";
 import "./globals.ts";
 
+Deno.test("[] can be passed to $", async () => {
+  const flags = ["--oneline", "--decorate", "--color"];
+  const { exitCode } = await $`git log ${flags}`;
+  assertEquals(exitCode, 0);
+});
+
 Deno.test("Env vars work", async () => {
   Deno.env.set("FOO", "foo");
   const foo = await $`echo $FOO`;

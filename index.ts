@@ -1,23 +1,23 @@
+// deno-lint-ignore-file no-empty
 //
 // Copyright 2022 Joona Piirainen
 // MIT License
 //
 
-import * as fs from "https://deno.land/std@0.129.0/node/fs.ts";
-import { process } from "https://deno.land/std@0.129.0/node/process.ts";
-import { inspect } from "https://deno.land/std@0.129.0/node/util.ts";
-import { readLines } from "https://deno.land/std@0.129.0/io/buffer.ts";
-import * as child_process from "https://deno.land/std@0.129.0/node/child_process.ts";
-import { ChildProcess } from "https://deno.land/std@0.129.0/node/internal/child_process.ts";
-import * as Colors from "https://deno.land/std@0.129.0/fmt/colors.ts";
-import { parse } from "https://deno.land/std@0.119.0/flags/mod.ts";
 import {
+  child_process,
+  ChildProcess,
+  Colors,
+  inspect,
+  nodeFs,
+  parse,
+  process,
+  psTree,
   Readable,
+  readLines,
   Writable,
-} from "https://deno.land/std@0.129.0/node/stream.ts";
-import { kill, psTree } from "./proc.ts";
-
-export const fsInternal = fs;
+} from "./deps.ts";
+export const fsInternal = nodeFs;
 
 export const initEnv = () =>
   Object.assign(globalThis, {
