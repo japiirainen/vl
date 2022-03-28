@@ -42,3 +42,10 @@ Deno.test("Can create a dir with a space in the name", async () => {
     await Deno.remove("/tmp/" + name);
   }
 });
+
+// TODO: these don't work currently...
+// Deno.test(".kill() works", async () => {
+//   const p = $`sleep 9999`;
+//   setTimeout(() => p.kill(), 100);
+//   await p;
+// });

@@ -87,6 +87,10 @@ export class VlPromise<P extends ProcessOutput> extends Promise<P> {
     return super.then(onfulfilled, onrejected);
   }
 
+  async kill(signal: Deno.Signal = "SIGTERM") {
+    throw new Error("not implemented");
+  }
+
   pipe(dest: VlPromise<ProcessOutput> | Writable): VlPromise<ProcessOutput> {
     if (typeof dest === "string") {
       throw new Error("The pipe() method does not take strings. Forgot $?");
@@ -268,7 +272,7 @@ const flags = parse(Deno.args, {
 
 $Internal.verbose = !flags["quiet"];
 $Internal.shell = flags["shell"];
-$Internal.prefix = "set -euo pipefail;";
+$Internal.prefix = flags["shell"] === "bash" ? "set -euo pipefail;" : "";
 $Internal.spawn = child_process.spawn;
 
 const substitute = <T>(arg: T) => {
