@@ -64,3 +64,9 @@ Deno.test("exiting non 0 works", async () => {
     assertEquals(e.exitCode, 1);
   }
 });
+
+Deno.test("quiet() works", async () => {
+  const p = quiet($`echo "hello"`);
+  assertEquals(p._quiet, true);
+  await p;
+});

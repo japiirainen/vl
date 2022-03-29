@@ -34,6 +34,7 @@ export const initEnv = () =>
     os: osInternal,
     Colors: ColorsInternal,
     sleep: sleepInternal,
+    quiet: quietInternal,
   });
 
 export interface $Internal {
@@ -393,3 +394,10 @@ export const noThrowInternal = (p: VlPromise<ProcessOutput>) => {
 
 export const sleepInternal = (ms: number) =>
   new Promise((r) => setTimeout(r, ms));
+
+export const quietInternal = (
+  p: VlPromise<ProcessOutput>,
+): VlPromise<ProcessOutput> => {
+  p._quiet = true;
+  return p;
+};

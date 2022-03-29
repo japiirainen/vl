@@ -12,6 +12,7 @@ import {
   noThrowInternal,
   osInternal,
   ProcessOutput as ProcessOutputInternal,
+  quietInternal,
   rmrfInternal,
   sleepInternal,
 } from "./index.ts";
@@ -27,4 +28,5 @@ declare global {
   const noThrow: typeof noThrowInternal;
   const Colors: typeof ColorsInternal;
   const sleep: typeof sleepInternal;
+  const quiet: typeof quietInternal;
 }

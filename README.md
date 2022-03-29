@@ -42,7 +42,7 @@ cd("..");
 await $`rm -rf tests`;
 ```
 
-### `$`command``
+### `$command`
 
 Executes the given command by spawning a subprocess. Everything passed through
 `${}` will be automatically quoted.
@@ -105,6 +105,20 @@ console.log(resp);
 
 ```ts
 await sleep(2000);
+```
+
+`noThrow()` Changes the behaviour of `$` to not throw an exception on non-zero
+exit codes. You can still access the `exitCode` from the response.
+
+```ts
+const { exitCode } = await noThrow($`exit 1`);
+console.log(exitCode);
+```
+
+`quiet()` Changes the behaviour of `$` to disable verbose output.
+
+```ts
+await quiet($`echo foobar`); // command and output will not be displayed.
 ```
 
 ### Install
