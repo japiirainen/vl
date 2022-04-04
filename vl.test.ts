@@ -1,3 +1,8 @@
+//
+// Copyright 2022 Joona Piirainen
+// MIT License
+//
+
 import { assertEquals } from "https://deno.land/std@0.129.0/testing/asserts.ts";
 
 import "./globals.d.ts";

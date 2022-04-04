@@ -1,3 +1,8 @@
+//
+// Copyright 2022 Joona Piirainen
+// MIT License
+//
+
 export { process } from "https://deno.land/std@0.130.0/node/process.ts";
 export * as os from "https://deno.land/std@0.130.0/node/os.ts";
 export * as path from "https://deno.land/std@0.130.0/path/mod.ts";

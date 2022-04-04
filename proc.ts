@@ -1,3 +1,8 @@
+//
+// Copyright 2022 Joona Piirainen
+// MIT License
+//
+
 const { build, run, readAll } = Deno;
 
 export interface Process {
