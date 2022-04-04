@@ -117,15 +117,44 @@ console.log(exitCode);
 
 `quiet()` Changes the behaviour of `$` to disable verbose output.
 
+usage:
+
 ```ts
 await quiet($`echo foobar`); // command and output will not be displayed.
 ```
 
-### Install
+`os` package.
+
+usage:
+
+```ts
+await $`echo ${os.homedir()}`;
+```
+
+### Configuration
+
+`$.shell`
+
+Which shell is used. Default is bash.
+
+```ts
+$.shell = "/usr/bin/zsh";
+```
+
+CLI argument `--shell=/usr/bin/zsh` can be used to achieve the same result.
+
+`$.verbose` can be used to specify verbosity.
+
+Default is `true`.
+
+CLI argument `--quiet` sets verbosity to `false`.
 
 #### Prerequisites
 
-- deno
+You need to have `deno` installed. You can find installation instructions at
+[deno.land](https://deno.land/).
+
+### Install
 
 ```sh
 deno install --allow-all -f https://deno.land/x/violet@<version_number>/vl.ts
