@@ -36,6 +36,7 @@ export const initEnv = () =>
     sleep: sleepInternal,
     quiet: quietInternal,
     retry: retryInternal,
+    startSpinner: startSpinnerInternal,
   });
 
 export interface $Internal {
@@ -418,15 +419,13 @@ export const retryInternal = (count = 0, delay = 0) =>
     }
   };
 
-// export const retryInternal =
-//   (count = 5, delay = 0) =>
-//   // deno-lint-ignore no-explicit-any
-//   async (cmd: TemplateStringsArray, ...args: any[]) => {
-//     while (count-- > 0)
-//       try {
-//         return await $(cmd, ...args)
-//       } catch (p) {
-//         if (count === 0) throw p
-//         if (delay) await sleepInternal(delay)
-//       }
-//   }
+export const startSpinnerInternal = (title = "") => {
+  let i = 0;
+  const spin = () =>
+    Deno.stdout.write(
+      new TextEncoder().encode(`  ${"⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"[i++ % 10]} ${title}\r`),
+    );
+  return ((id) => ({
+    stopSpinner: () => clearInterval(id),
+  }))(setInterval(spin, 100));
+};
