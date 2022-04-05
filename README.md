@@ -145,6 +145,18 @@ await retry(5)`curl localhost`;
 await retry(5, 500)`curl localhost`;
 ```
 
+`startSpinner()`
+
+Displays a spinner as an loading indicator. Useful with long running processes.
+
+usage:
+
+```ts
+const { stopSpinner } = startSpinner();
+await sleep(5000);
+stopSpinner();
+```
+
 ### Configuration
 
 `$.shell`

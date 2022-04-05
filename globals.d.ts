@@ -16,6 +16,7 @@ import {
   retryInternal,
   rmrfInternal,
   sleepInternal,
+  startSpinnerInternal,
 } from "./index.ts";
 
 declare global {
@@ -31,4 +32,5 @@ declare global {
   const sleep: typeof sleepInternal;
   const quiet: typeof quietInternal;
   const retry: typeof retryInternal;
+  const startSpinner: typeof startSpinnerInternal;
 }

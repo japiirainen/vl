@@ -90,3 +90,9 @@ Deno.test("retry works", async () => {
   assertEquals(exitCode, 123);
   assert(Date.now() >= now + 50 * (5 - 1));
 });
+
+Deno.test("spinner works", async () => {
+  const { stopSpinner } = startSpinner("waiting");
+  await sleep(1000);
+  stop();
+});
