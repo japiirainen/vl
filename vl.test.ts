@@ -3,7 +3,10 @@
 // MIT License
 //
 
-import { assertEquals } from "https://deno.land/std@0.129.0/testing/asserts.ts";
+import {
+  assert,
+  assertEquals,
+} from "https://deno.land/std@0.129.0/testing/asserts.ts";
 
 import "./globals.d.ts";
 import "./globals.ts";
@@ -74,4 +77,16 @@ Deno.test("quiet() works", async () => {
   const p = quiet($`echo "hello"`);
   assertEquals(p._quiet, true);
   await p;
+});
+
+Deno.test("retry works", async () => {
+  let exitCode = 0;
+  const now = Date.now();
+  try {
+    await retry(5, 50)`exit 123`;
+  } catch (p) {
+    exitCode = p.exitCode;
+  }
+  assertEquals(exitCode, 123);
+  assert(Date.now() >= now + 50 * (5 - 1));
 });

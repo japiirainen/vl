@@ -13,6 +13,7 @@ import {
   osInternal,
   ProcessOutput as ProcessOutputInternal,
   quietInternal,
+  retryInternal,
   rmrfInternal,
   sleepInternal,
 } from "./index.ts";
@@ -29,4 +30,5 @@ declare global {
   const Colors: typeof ColorsInternal;
   const sleep: typeof sleepInternal;
   const quiet: typeof quietInternal;
+  const retry: typeof retryInternal;
 }

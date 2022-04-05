@@ -131,6 +131,20 @@ usage:
 await $`echo ${os.homedir()}`;
 ```
 
+`retry()`
+
+Retries a command as many times as specified. Returns the first successful
+attempt, or will throw after specified attempts count.
+
+usage:
+
+```ts
+await retry(5)`curl localhost`;
+
+// or with a specified delay (500ms)
+await retry(5, 500)`curl localhost`;
+```
+
 ### Configuration
 
 `$.shell`

@@ -35,6 +35,7 @@ export const initEnv = () =>
     Colors: ColorsInternal,
     sleep: sleepInternal,
     quiet: quietInternal,
+    retry: retryInternal,
   });
 
 export interface $Internal {
@@ -401,3 +402,31 @@ export const quietInternal = (
   p._quiet = true;
   return p;
 };
+
+export const retryInternal = (count = 0, delay = 0) =>
+  async (
+    pieces: TemplateStringsArray,
+    // deno-lint-ignore no-explicit-any
+    ...args: any[]
+  ): Promise<ProcessOutput> => {
+    try {
+      return await $(pieces, args);
+    } catch (e) {
+      if (count === 0) throw e;
+      if (delay) await sleepInternal(delay);
+      return retryInternal(count - 1, delay)(pieces, args);
+    }
+  };
+
+// export const retryInternal =
+//   (count = 5, delay = 0) =>
+//   // deno-lint-ignore no-explicit-any
+//   async (cmd: TemplateStringsArray, ...args: any[]) => {
+//     while (count-- > 0)
+//       try {
+//         return await $(cmd, ...args)
+//       } catch (p) {
+//         if (count === 0) throw p
+//         if (delay) await sleepInternal(delay)
+//       }
+//   }
