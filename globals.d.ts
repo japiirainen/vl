@@ -7,6 +7,7 @@ import {
   $Internal,
   askInternal,
   cdInternal,
+  chooseInternal,
   ColorsInternal,
   fsInternal,
   noThrowInternal,
@@ -24,6 +25,7 @@ declare global {
   const $: $Internal;
   const cd: typeof cdInternal;
   const ask: typeof askInternal;
+  const choose: typeof chooseInternal;
   const fs: typeof fsInternal;
   const os: typeof osInternal;
   const rmrf: typeof rmrfInternal;

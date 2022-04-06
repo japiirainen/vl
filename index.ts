@@ -8,6 +8,7 @@ import {
   child_process,
   ChildProcess,
   Colors,
+  input,
   inspect,
   nodeFs as fsInternal,
   os as osInternal,
@@ -37,6 +38,7 @@ export const initEnv = () =>
     quiet: quietInternal,
     retry: retryInternal,
     startSpinner: startSpinnerInternal,
+    choose: chooseInternal,
   });
 
 export interface $Internal {
@@ -378,12 +380,31 @@ export const cdInternal = (path: string) => {
   Deno.chdir(path);
 };
 
-export const askInternal = async (question: string) => {
-  console.log(question);
+export const getLine = async () => {
   for await (const line of readLines(Deno.stdin)) {
     return line;
   }
-  return "";
+  throw new Error("EOL");
+};
+
+const write = (text: string) =>
+  Deno.stdout.write(new TextEncoder().encode(text));
+
+export const writeLine = (text: string) => write(text + "\n");
+
+export const askInternal = async (question: string) => {
+  const loop = new input.default();
+  return await loop.question(question);
+};
+
+export const chooseInternal = async (question: string, choices: string[]) => {
+  const loop = new input.default();
+  await writeLine(question);
+  const idx = (await loop.choose(choices)).findIndex(Boolean);
+  if (idx === -1) {
+    throw new Error("Answer not in the given choices.");
+  }
+  return choices[idx];
 };
 
 export const rmrfInternal = async (path: string) =>
@@ -421,10 +442,7 @@ export const retryInternal = (count = 0, delay = 0) =>
 
 export const startSpinnerInternal = (title = "") => {
   let i = 0;
-  const spin = () =>
-    Deno.stdout.write(
-      new TextEncoder().encode(`  ${"⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"[i++ % 10]} ${title}\r`),
-    );
+  const spin = () => write(`  ${"⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"[i++ % 10]} ${title}\r`);
   return ((id) => ({
     stopSpinner: () => clearInterval(id),
   }))(setInterval(spin, 100));

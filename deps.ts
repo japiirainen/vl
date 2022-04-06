@@ -29,6 +29,11 @@ export {
 } from "https://deno.land/std@0.129.0/node/stream.ts";
 
 //
+// external packages
+//
+export * as input from "https://deno.land/x/input@2.0.3/index.ts";
+
+//
 // internal
 //
 export { psTree } from "./proc.ts";

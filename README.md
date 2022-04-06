@@ -101,6 +101,13 @@ const resp = await ask("What is your name?");
 console.log(resp);
 ```
 
+`choose` prompts the user to choose from the provided options.
+
+```ts
+const resp = await choose("Would you like a foo or a bar?", ["foo", "bar"]);
+console.log(resp);
+```
+
 `sleep` sleeps for specified ms.
 
 ```ts
