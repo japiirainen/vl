@@ -432,7 +432,7 @@ export const retryInternal = (count = 0, delay = 0) =>
     ...args: any[]
   ): Promise<ProcessOutput> => {
     try {
-      return await $(pieces, args);
+      return await $Internal(pieces, args);
     } catch (e) {
       if (count === 0) throw e;
       if (delay) await sleepInternal(delay);

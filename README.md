@@ -1,10 +1,22 @@
-# vl
+# vl (violet)
+
+![deno CI](https://github.com/japiirainen/vl/actions/workflows/deno.yml/badge.svg)
 
 Shell scripting with TypeScript. Runs on top of [Deno](https://deno.land).
 
 `vl` started as a port of [`zx`](https://github.com/google/zx) to deno. The main
 motivation for this package was the lack of typescript support in `zx`. That's
 where I got the idea to use `deno`, since it supports TypeScript natively.
+
+## Table of contents
+
+- [Motivation](#motivation)
+  - [Example program](#example-program)
+- [Usage](#usage)
+- [Install](#install)
+- [Credits](#credits)
+
+## Motivation
 
 Bash is great, but when it comes to writing scripts, it has it's limitations and
 people tend to go for more expressive programming languages.
@@ -15,6 +27,8 @@ needs. Since `vl` uses `deno`, it has access to both the rich standard library
 of [deno](https://github.com/denoland/deno_std), and the battle tested standard
 libraries of [node](https://nodejs.dev) through it's
 [node compatibility](https://github.com/denoland/deno_std/tree/main/node).
+
+### Example Program
 
 ```ts
 #!/usr/bin/env vl
@@ -42,6 +56,8 @@ cd("..");
 await $`rm -rf tests`;
 ```
 
+## Usage
+
 ### `$command`
 
 Executes the given command by spawning a subprocess. Everything passed through
@@ -66,8 +82,9 @@ const { exitCode } = await $`git log ${flags}`;
 
 import "https://deno.land/x/violet/globals.d.ts";
 
-await $`echo "Hello, stdout!"`
-  .pipe(fs.createWriteStream("/tmp/output.txt", {}));
+await $`echo "Hello, stdout!"`.pipe(
+  fs.createWriteStream("/tmp/output.txt", {}),
+);
 
 await $`cat /tmp/output.txt`;
 ```
@@ -182,13 +199,20 @@ Default is `true`.
 
 CLI argument `--quiet` sets verbosity to `false`.
 
-#### Prerequisites
+## Install
+
+### Prerequisites
 
 You need to have `deno` installed. You can find installation instructions at
 [deno.land](https://deno.land/).
 
-### Install
-
 ```sh
 deno install --allow-all -f https://deno.land/x/violet@<version_number>/vl.ts
 ```
+
+## Credits
+
+The project wouldn't have been possible without these resources, so I'm forever
+grateful for the existence of these!
+
+- [zx](https://github.com/google/zx)
