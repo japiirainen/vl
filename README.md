@@ -11,11 +11,19 @@ TypeScript natively.
 
 ## Table of contents
 
-- [Motivation](#motivation)
-  - [Example program](#example-program)
-- [Usage](#usage)
-- [Install](#install)
-- [Credits](#credits)
+- [vl (violet)](#vl-violet)
+  - [Table of contents](#table-of-contents)
+  - [Motivation](#motivation)
+    - [Example Program](#example-program)
+  - [Usage](#usage)
+    - [`$command`](#command)
+    - [Pipelines](#pipelines)
+    - [Environment variables](#environment-variables)
+    - [Functions](#functions)
+    - [Configuration](#configuration)
+  - [Install](#install)
+    - [Prerequisites](#prerequisites)
+  - [Credits](#credits)
 
 ## Motivation
 

@@ -24,5 +24,4 @@ cd("tests");
 await $`ls`;
 cd("..");
 
-// clean up
 await $`rm -rf tests`;
