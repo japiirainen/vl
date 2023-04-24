@@ -224,7 +224,8 @@ deno install --allow-all -f https://deno.land/x/violet@<version_number>/vl.ts
 
 ### Execution
 
-There are two modes of execution, either using the shebang of `#!/usr/bin/env vl` or using a verbose deno command.
+There are two modes of execution, either using the shebang of
+`#!/usr/bin/env vl` or using a verbose deno command.
 
 #### Shebang Mode
 
@@ -233,7 +234,7 @@ There are two modes of execution, either using the shebang of `#!/usr/bin/env vl
 
 import "https://deno.land/x/violet/globals.d.ts";
 
-await $`echo 1`
+await $`echo 1`;
 ```
 
 #### Deno basic mode
@@ -245,9 +246,8 @@ import "https://deno.land/x/violet/globals.d.ts";
 // Import the global functions into namespace, required in this method
 import "https://deno.land/x/violet@0.1.0/globals.ts";
 
-await $`echo 1`
+await $`echo 1`;
 ```
-
 
 ## Credits
 

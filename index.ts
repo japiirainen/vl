@@ -216,8 +216,8 @@ export const $Internal: $Internal = (pieces, ...args) => {
   const cmd = args
     .map((p) =>
       Array.isArray(p)
-        ? // deno-lint-ignore no-explicit-any
-          p.map((a: any) => $Internal.quote(substitute(a))).join(" ")
+        // deno-lint-ignore no-explicit-any
+        ? p.map((a: any) => $Internal.quote(substitute(a))).join(" ")
         : $Internal.quote(substitute(p))
     )
     .reduce((acc, x) => `${acc}${x}`, pieces[0]);
@@ -426,19 +426,19 @@ export const quietInternal = (
 };
 
 export const retryInternal = (count = 0, delay = 0) =>
-  async (
-    pieces: TemplateStringsArray,
-    // deno-lint-ignore no-explicit-any
-    ...args: any[]
-  ): Promise<ProcessOutput> => {
-    try {
-      return await $Internal(pieces, args);
-    } catch (e) {
-      if (count === 0) throw e;
-      if (delay) await sleepInternal(delay);
-      return retryInternal(count - 1, delay)(pieces, args);
-    }
-  };
+async (
+  pieces: TemplateStringsArray,
+  // deno-lint-ignore no-explicit-any
+  ...args: any[]
+): Promise<ProcessOutput> => {
+  try {
+    return await $Internal(pieces, args);
+  } catch (e) {
+    if (count === 0) throw e;
+    if (delay) await sleepInternal(delay);
+    return retryInternal(count - 1, delay)(pieces, args);
+  }
+};
 
 export const startSpinnerInternal = (title = "") => {
   let i = 0;
