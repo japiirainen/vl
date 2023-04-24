@@ -23,6 +23,9 @@ TypeScript natively.
     - [Configuration](#configuration)
   - [Install](#install)
     - [Prerequisites](#prerequisites)
+  - [Execution](#execution)
+    - [Shebang Mode](#shebang-mode)
+    - [Deno basic Mode](#deno-basic-mode)
   - [Credits](#credits)
 
 ## Motivation
