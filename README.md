@@ -219,6 +219,33 @@ You need to have `deno` installed. You can find installation instructions at
 deno install --allow-all -f https://deno.land/x/violet@<version_number>/vl.ts
 ```
 
+### Execution
+
+There are two modes of execution, either using the shebang of `#!/usr/bin/env vl` or using a verbose deno command.
+
+#### Shebang Mode
+
+```ts
+#!/usr/bin/env vl
+
+import "https://deno.land/x/violet/globals.d.ts";
+
+await $`echo 1`
+```
+
+#### Deno basic mode
+
+```ts
+#!/usr/bin/env -S deno run --allow-all
+
+import "https://deno.land/x/violet/globals.d.ts";
+// Import the global functions into namespace, required in this method
+import "https://deno.land/x/violet@0.1.0/globals.ts";
+
+await $`echo 1`
+```
+
+
 ## Credits
 
 The project wouldn't have been possible without these resources, so I'm forever
