@@ -159,6 +159,15 @@ usage:
 await quiet($`echo foobar`); // command and output will not be displayed.
 ```
 
+`sanitize()` Changes the behaviour of `$` to redact output.
+
+usage:
+
+```ts
+await sanitize($`echo a SECRET_KEY`, ['SECRET_KEY']);
+> a ********
+```
+
 `os` package.
 
 usage:

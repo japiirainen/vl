@@ -36,6 +36,7 @@ export const initEnv = () =>
     Colors: ColorsInternal,
     sleep: sleepInternal,
     quiet: quietInternal,
+    sanitize: sanitizeInternal,
     retry: retryInternal,
     startSpinner: startSpinnerInternal,
     choose: chooseInternal,
@@ -56,6 +57,7 @@ export class VlPromise<P extends ProcessOutput> extends Promise<P> {
   child?: ChildProcess = undefined;
   _noThrow = false;
   _quiet = false;
+  _sanitize: string[] = [];
   _resolved = false;
   _inheritStdin = true;
   _piped = false;
@@ -227,11 +229,15 @@ export const $Internal: $Internal = (pieces, ...args) => {
   const promise = new VlPromise((...args) => ([resolve, reject] = args));
 
   promise._run = () => {
+    let cmdCopy = cmd;
     // _run called from two places: then() and setTimeout()
     if (promise.child) return;
     if (promise._preRun) promise._preRun();
     if (verbose && !promise._quiet) {
-      printCommand(cmd);
+      for (const i of promise._sanitize) {
+        cmdCopy = cmdCopy.replaceAll(i, "********");
+      }
+      printCommand(cmdCopy);
     }
 
     const child = spawn(prefix + cmd, {
@@ -422,6 +428,14 @@ export const quietInternal = (
   p: VlPromise<ProcessOutput>,
 ): VlPromise<ProcessOutput> => {
   p._quiet = true;
+  return p;
+};
+
+export const sanitizeInternal = (
+  p: VlPromise<ProcessOutput>,
+  terms: string[],
+): VlPromise<ProcessOutput> => {
+  p._sanitize = terms;
   return p;
 };
 
