@@ -213,14 +213,14 @@ export class ProcessOutput extends Error {
 export const $Internal: $Internal = (pieces, ...args) => {
   const { verbose, shell, prefix, spawn } = $Internal;
 
-  const cmd = args
+  const argsQuoted = args
     .map((p) =>
       Array.isArray(p)
         // deno-lint-ignore no-explicit-any
         ? p.map((a: any) => $Internal.quote(substitute(a))).join(" ")
         : $Internal.quote(substitute(p))
-    )
-    .reduce((acc, x) => `${acc}${x}`, pieces[0]);
+    );
+  const cmd = String.raw({ raw: pieces }, ...argsQuoted);
 
   // deno-lint-ignore no-explicit-any
   let resolve: any, reject: any;
