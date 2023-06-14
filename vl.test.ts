@@ -48,7 +48,19 @@ Deno.test("undefined and empty string correctly quoted", async () => {
   assertEquals((await $`echo ${""}`).stdout.trim(), "");
 });
 
-Deno.test("multiple arguments in execution are correctly quoted", async () => {
+Deno.test("multiple arguments in execution are correctly quoted from list format", async () => {
+  let foo = "foo"
+  let bar = "bar"
+  let cmd = [
+    `echo`,
+    foo,
+    "to",
+    bar
+  ]
+  assertEquals((await $`${cmd}`).stdout.trim(), "foo to bar");
+});
+
+Deno.test("multiple arguments in execution are correctly quoted from string format", async () => {
   let foo = "foo"
   let bar = "bar"
   assertEquals((await $`echo ${foo} to ${bar}`).stdout.trim(), "foo to bar");
