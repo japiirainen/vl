@@ -16,6 +16,7 @@ import {
   quietInternal,
   retryInternal,
   rmrfInternal,
+  sanitizeInternal,
   sleepInternal,
   startSpinnerInternal,
 } from "./index.ts";
@@ -33,6 +34,7 @@ declare global {
   const Colors: typeof ColorsInternal;
   const sleep: typeof sleepInternal;
   const quiet: typeof quietInternal;
+  const sanitize: typeof sanitizeInternal;
   const retry: typeof retryInternal;
   const startSpinner: typeof startSpinnerInternal;
 }

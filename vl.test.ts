@@ -79,6 +79,13 @@ Deno.test("quiet() works", async () => {
   await p;
 });
 
+Deno.test("santitize() works", async () => {
+  const p = sanitize($`echo "hello" SECRET_KEY`, ["SECRET_KEY"]);
+  assertEquals(p._sanitize, ["SECRET_KEY"]);
+  // Note that sanitize stopped it from printing but does not remove it from the output of stdout
+  await p;
+});
+
 Deno.test("retry works", async () => {
   let exitCode = 0;
   const now = Date.now();
